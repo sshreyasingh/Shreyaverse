@@ -7,3 +7,5 @@
 - Prefers precise location guidance when asked where to make a change — exact file paths and (where helpful) line numbers rather than a high-level description. Confidence: 0.6
 - Prefers the assistant to verify changes build/compile successfully after applying edits (e.g., running `npm run build`) rather than leaving edits unverified. Confidence: 0.55
 - Prefers the assistant to explicitly disclose the assumptions it made when fixing or changing things, rather than proceeding silently on unstated assumptions (asks "tell me what all did you assume"). Confidence: 0.75
+- Prefers to delegate work at a high level (e.g., "do the necessary changes") and expects the assistant to proactively identify and apply all required changes rather than requiring step-by-step instruction. Confidence: 0.5
+- Prefers to avoid building or maintaining a separate backend — for things like contact forms, uses a frontend/third-party service (e.g., EmailJS) that delivers submissions directly to email instead of a self-hosted API. Confidence: 0.85

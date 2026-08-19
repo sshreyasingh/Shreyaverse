@@ -13,7 +13,11 @@
       "Shell(dir /s /b .git 2>nul; echo '--- done ---')",
       "Shell(Move-Item:*)",
       "Shell(Get-ChildItem:*)",
-      "powershell"
+      "powershell",
+      "Shell(git rev-parse --is-inside-work-tree 2>&1; echo \"---\"; git status 2>&1; echo \"---\"; git remote -v 2>&1)",
+      "Shell(node -v)",
+      "Shell(if:*)",
+      "Shell(dir:*)"
     ],
     "deny": [],
     "defaultMode": "default"

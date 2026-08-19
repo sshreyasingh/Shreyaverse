@@ -1,47 +1,44 @@
-// In dev, Vite proxies /api to the Express server (see vite.config.js).
-// In production, set VITE_API_URL to the deployed API origin.
-const API_BASE = import.meta.env.VITE_API_URL || '';
+import emailjs from '@emailjs/browser';
+
+// EmailJS config is injected at build time from .env (VITE_EMAILJS_*).
+const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+const TEMPLATE_FIELDS = ['from_name', 'from_email', 'subject', 'message'];
 
 /**
- * POSTs the contact form to the backend.
+ * Sends the contact form via EmailJS directly from the browser.
  * Resolves to { ok, message, errors } — never throws for expected failures,
  * so the caller can render field errors and network errors the same way.
  */
 export async function sendContactMessage(payload, { signal } = {}) {
-  try {
-    const response = await fetch(`${API_BASE}/api/contact`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-      signal,
-    });
-
-    let data = {};
-    try {
-      data = await response.json();
-    } catch {
-      // Non-JSON response (proxy error page, gateway timeout, …)
-    }
-
-    if (!response.ok) {
-      return {
-        ok: false,
-        errors: data.errors || null,
-        message:
-          data.error ||
-          (response.status === 429
-            ? 'Too many messages sent. Please try again later.'
-            : 'Something went wrong. Please email me directly.'),
-      };
-    }
-
-    return { ok: true, message: data.message || 'Message sent!', errors: null };
-  } catch (err) {
-    if (err.name === 'AbortError') throw err;
+  if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
     return {
       ok: false,
       errors: null,
-      message: 'Could not reach the server. Please check your connection or email me directly.',
+      message: 'Contact form is not configured yet. Please email me directly.',
+    };
+  }
+
+  try {
+    const templateParams = TEMPLATE_FIELDS.reduce((params, key) => {
+      params[key] = payload[key] || '';
+      return params;
+    }, {});
+
+    await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, {
+      publicKey: PUBLIC_KEY,
+      signal,
+    });
+
+    return { ok: true, message: 'Message sent!', errors: null };
+  } catch (err) {
+    if (err?.name === 'AbortError') throw err;
+    return {
+      ok: false,
+      errors: null,
+      message: 'Could not send your message. Please email me directly.',
     };
   }
 }

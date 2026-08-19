@@ -11,6 +11,7 @@
     "dev:all": "concurrently -n web,api -c cyan,magenta \"npm run dev\" \"npm run server\""
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "better-sqlite3": "^13.0.3",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
