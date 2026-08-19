@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Shell(npm:*)",
+      "Shell(node -e \"const si=require('react-icons/si'); const names=['SiC','SiMysql','SiNumpy','SiPandas','SiSocketdotio','SiAxios','SiMui','SiGithub','SiOauth','SiOpenauthentication','SiAuth0','SiJsonwebtokens','SiOpenai','SiOpenaichatgpt','SiWeightsandbiases','SiRag','SiDsa','SiSystemdesign','SiOop','SiDbms','SiOperatingsystem','SiComputernetwork','SiWebsocket','SiJwt','SiApifirst','SiOpenapi','SiSwagger','SiHuggingface','SiLangchain','SiScikitlearn']; for(const n of names){console.log(n, !!si[n]);}\")",
+      "Shell(node -e \"const si=require('react-icons/si'); const fa=require('react-icons/fa'); const md=require('react-icons/md'); const names=['SiSqlite','SiPostgresql','SiMysql','SiPython','SiCplusplus','SiC','SiJavascript','SiNumpy','SiPandas','SiMatplotlib','SiSeaborn','SiScikitlearn','SiReact','SiSocketdotio','SiAxios','SiMui','SiHtml5','SiCss','SiTailwindcss','SiResponsivewebdesign','SiNodedotjs','SiExpress','SiWebsocket','SiOpenai','SiOpenaichatgpt','SiLangchain','SiRag','SiMlflow','SiGit','SiGithub','SiPostman','SiSupabase','SiVscodium','SiGithubactions','SiDatastax','SiArchlinux','SiOpenjdk']; const faNames=['FaCode','FaLaptopCode','FaDatabase','FaNetworkWired','FaProjectDiagram','FaBrain','FaRobot','FaLayerGroup','FaCubes','FaShieldAlt','FaPlug','FaExchangeAlt','FaSortAmountDown','FaRegChartBar','FaCogs']; for(const n of names){console.log('SI', n, !!si[n]);} for(const n of faNames){console.log('FA', n, !!fa[n]);} console.log('MD Code', !!md.MdCode); console.log('MD DataObject', !!md.MdDataObject); console.log('MD Memory', !!md.MdMemory); console.log('MD Hub', !!md.MdHub); console.log('MD Architecture', !!md.MdArchitecture);\")",
+      "Shell(node -e \"const fa=require('react-icons/fa'); for(const n of ['FaMemory','FaMobileAlt','FaSitemap','FaTree','FaBrain','FaRobot','FaLayerGroup','FaProjectDiagram','FaCubes','FaDatabase','FaNetworkWired','FaCode','FaExchangeAlt','FaLaptopCode','FaPlug','FaCogs','FaServer']){console.log(n, !!fa[n]);}\")",
+      "Shell(node -e \"const fa=require('react-icons/fa'); const names=['FaChartLine','FaChartArea','FaMobileAlt','FaPlug','FaServer','FaExchangeAlt','FaProjectDiagram','FaSitemap','FaBrain','FaRobot','FaLayerGroup','FaTree','FaCubes','FaDatabase','FaCogs','FaNetworkWired','FaMagic','FaDesktop','FaCode']; for(const n of names){console.log(n, !!fa[n]);}\")",
+      "Shell(ls -la; echo '--- server ---'; ls -la server; echo '--- server/data ---'; ls -la server/data 2>/dev/null; echo '--- env files ---'; ls -la .env* server/.env* 2>/dev/null)",
+      "Shell(dir; echo '--- server ---'; dir server; echo '--- server\\data ---'; dir server\\data 2>nul; echo '--- env ---'; dir .env server\\.env 2>nul)",
+      "Shell(curl -s http://localhost:5000/api/health)",
+      "Shell(curl -s -X POST http://localhost:5000/api/contact -H \"Content-Type: application/json\" -H \"Origin: http://localhost:5173\" -d \"{\\\"name\\\":\\\"Test User\\\",\\\"email\\\":\\\"test@example.com\\\",\\\"subject\\\":\\\"Backend check\\\",\\\"message\\\":\\\"This is a test message for the backend check.\\\"}\")",
+      "Shell(dir /s /b .git 2>nul; echo '--- done ---')",
+      "Shell(Move-Item:*)",
+      "Shell(Get-ChildItem:*)",
+      "powershell"
+    ],
+    "deny": [],
+    "defaultMode": "default"
+  }
+}

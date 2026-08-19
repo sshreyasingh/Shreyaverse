@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Build
+dist/
+.vite/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.local
+server/.env
+
+# Backend database (contains contact submissions — never commit)
+server/data/
+*.db
+*.db-wal
+*.db-shm
