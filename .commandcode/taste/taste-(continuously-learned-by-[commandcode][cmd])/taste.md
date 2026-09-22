@@ -11,3 +11,4 @@
 - Prefers to delegate work at a high level (e.g., "do the necessary changes") and expects the assistant to proactively identify and apply all required changes rather than requiring step-by-step instruction. Confidence: 0.5
 - Prefers to avoid building or maintaining a separate backend — for things like contact forms, uses a frontend/third-party no-backend service (e.g., EmailJS, Web3Forms) that delivers submissions directly to email instead of a self-hosted API. Confidence: 0.9
 - Prefers the assistant to clearly flag any manual steps or additions required on their side (e.g., setting env variables, host configuration, restarting a dev server) rather than assuming they will infer them from the code change. Confidence: 0.55
+- Prefers environment variable names without Vite's `VITE_` prefix (e.g., `WEB3FORMS_ACCESS_KEY` rather than `VITE_WEB3FORMS_ACCESS_KEY`), exposed to the client via a custom `envPrefix` in vite.config.js. Confidence: 0.6

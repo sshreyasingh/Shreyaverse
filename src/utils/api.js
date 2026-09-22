@@ -1,6 +1,6 @@
-// Web3Forms access key is injected at build time from .env (VITE_WEB3FORMS_ACCESS_KEY).
+// Web3Forms access key is injected at build time from .env (WEB3FORMS_ACCESS_KEY).
 // Get one at https://web3forms.com — the key is public and safe to ship in the bundle.
-const ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+const ACCESS_KEY = import.meta.env.WEB3FORMS_ACCESS_KEY;
 const ENDPOINT = 'https://api.web3forms.com/submit';
 
 /**

@@ -3,6 +3,8 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
+  // Expose WEB3FORMS_* env vars to the client (Vite only exposes VITE_* by default).
+  envPrefix: ['VITE_', 'WEB3FORMS_'],
   server: {
     proxy: {
       // Lets the frontend call /api/* in dev without CORS or a hardcoded port.
