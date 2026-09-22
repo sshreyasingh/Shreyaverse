@@ -19,5 +19,5 @@
 - Prefers form/input UI to be visually rich and engaging (card container with a gradient accent band, radial glow accent, inline field icons, multi-column layout, animated gradient submit button) rather than plain, undecorated stacked inputs — describes bare forms as "dull". Confidence: 0.7
 - Prefers real photos/images over emoji or character placeholders for personal/identity elements (e.g., replacing the About-section emoji with an actual profile photo). Confidence: 0.7
 - Prefers text/badges overlaid on images (e.g., a college-name label on the About profile photo) to be clearly readable via a solid, high-contrast background with light text, rather than translucent or low-contrast treatment that can disappear against the image. Confidence: 0.6
-- Prefers to keep the existing UI/design visually unchanged when adding or swapping a feature's implementation (e.g., replacing a form's backend service), rather than redesigning the interface as part of the change. Confidence: 0.7
+- Prefers to keep the existing UI/design visually unchanged when adding or swapping a feature's implementation (e.g., replacing a form's backend service), rather than redesigning the interface as part of the change. Confidence: 0.8
 
