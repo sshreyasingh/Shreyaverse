@@ -130,6 +130,7 @@ function ErrorMessage({ message }) {
 
 export default function Contact() {
   const formRef = useRef(null);
+  const honeypotRef = useRef(null);
   const [formData, setFormData] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
@@ -170,7 +171,10 @@ export default function Contact() {
     if (Object.keys(validationErrors).length > 0) return;
 
     setStatus('sending');
-    const result = await sendContactMessage(formData);
+    const result = await sendContactMessage({
+      ...formData,
+      botcheck: honeypotRef.current?.value || '',
+    });
 
     if (result.ok) {
       setServerMessage(result.message);
@@ -224,6 +228,16 @@ export default function Contact() {
                 transition={{ duration: 0.4 }}
               >
                 <form ref={formRef} onSubmit={handleSubmit} noValidate>
+                  {/* Honeypot — real users never see it; bots that fill it get dropped by Web3Forms. */}
+                  <input
+                    ref={honeypotRef}
+                    type="text"
+                    name="botcheck"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    className="hidden"
+                  />
                   <div className="glass relative overflow-hidden rounded-3xl p-6 sm:p-8">
                     {/* Header band */}
                     <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 via-violet-500 to-accent-light" />

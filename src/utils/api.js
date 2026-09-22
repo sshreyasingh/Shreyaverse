@@ -1,19 +1,16 @@
-import emailjs from '@emailjs/browser';
-
-// EmailJS config is injected at build time from .env (VITE_EMAILJS_*).
-const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-
-const TEMPLATE_FIELDS = ['from_name', 'from_email', 'subject', 'message'];
+// Web3Forms access key is injected at build time from .env (VITE_WEB3FORMS_ACCESS_KEY).
+// Get one at https://web3forms.com — the key is public and safe to ship in the bundle.
+const ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+const ENDPOINT = 'https://api.web3forms.com/submit';
 
 /**
- * Sends the contact form via EmailJS directly from the browser.
+ * Sends the contact form to Web3Forms, which delivers the complete payload
+ * (name, email, subject, message + any extra fields) to the configured inbox.
  * Resolves to { ok, message, errors } — never throws for expected failures,
  * so the caller can render field errors and network errors the same way.
  */
 export async function sendContactMessage(payload, { signal } = {}) {
-  if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+  if (!ACCESS_KEY) {
     return {
       ok: false,
       errors: null,
@@ -22,17 +19,25 @@ export async function sendContactMessage(payload, { signal } = {}) {
   }
 
   try {
-    const templateParams = TEMPLATE_FIELDS.reduce((params, key) => {
-      params[key] = payload[key] || '';
-      return params;
-    }, {});
-
-    await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, {
-      publicKey: PUBLIC_KEY,
+    const res = await fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ access_key: ACCESS_KEY, ...payload }),
       signal,
     });
 
-    return { ok: true, message: 'Message sent!', errors: null };
+    // Web3Forms returns JSON on both success and validation failure.
+    const data = await res.json().catch(() => null);
+
+    if (res.ok && data?.success) {
+      return { ok: true, message: data.message || 'Message sent!', errors: null };
+    }
+
+    return {
+      ok: false,
+      errors: data?.errors || null,
+      message: data?.message || 'Could not send your message. Please email me directly.',
+    };
   } catch (err) {
     if (err?.name === 'AbortError') throw err;
     return {
