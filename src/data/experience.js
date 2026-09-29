@@ -51,22 +51,21 @@ export const experiences = [
       'Selected for Amazon ML Summer School 2026 among 3,000+ students from 1.3L+ applicants',
     ],
   },
-  // {
-  //   id: 4,
-  //   role: 'Web Development Lead',
-  //   company: 'IIIT Kota Tech Club',
-  //   location: 'IIIT Kota',
-  //   duration: 'Oct 2023 — Present',
-  //   type: 'Leadership',
-  //   description: [
-  //     'Lead a team of 8 developers in building the official college tech fest website',
-  //     'Organized workshops on React, Git, and DSA for 200+ students',
-  //     'Mentored junior students through code reviews and pair programming sessions',
-  //   ],
-  //   techStack: ['React', 'Next.js', 'Tailwind CSS', 'Firebase', 'Figma'],
-  //   achievements: [
-  //     'Led team of 8 developers',
-  //     'Conducted workshops for 200+ students',
-  //   ],
-  // },
+  {
+    id: 4,
+    role: 'SDE Intern',
+    company: 'Gyanama',
+    location: 'Remote',
+    duration: 'May 2025 — July 2025',
+    type: 'Internship',
+    description: [
+      'Developed an automated voice agent to notify parents of attendance issues, reducing manual follow-ups.',
+      'Built backend APIs for student health scores and AI-powered assignment evaluation workflows.',
+    ],
+    techStack: ['React', 'API', 'AI integration', 'Node.js', 'Generative AI'],
+    achievements: [
+      'worked on automation',
+      'built AI powered assignments',
+    ],
+  },
 ];
