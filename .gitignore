@@ -16,6 +16,7 @@ Thumbs.db
 # Env
 .env
 .env.local
+.env.production
 server/.env
 
 # Backend database (contains contact submissions — never commit)

@@ -1,5 +1,4 @@
-// Web3Forms access key is injected at build time from .env (WEB3FORMS_ACCESS_KEY).
-// Get one at https://web3forms.com — the key is public and safe to ship in the bundle.
+// Vite injects this public Web3Forms access key at build time.
 const ACCESS_KEY = import.meta.env.WEB3FORMS_ACCESS_KEY;
 const ENDPOINT = 'https://api.web3forms.com/submit';
 
@@ -14,7 +13,7 @@ export async function sendContactMessage(payload, { signal } = {}) {
     return {
       ok: false,
       errors: null,
-      message: 'Contact form is not configured yet. Please email me directly.',
+      message: 'The contact form is temporarily unavailable. Please try again later.',
     };
   }
 
@@ -22,7 +21,12 @@ export async function sendContactMessage(payload, { signal } = {}) {
     const res = await fetch(ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({ access_key: ACCESS_KEY, ...payload }),
+      body: JSON.stringify({
+        ...payload,
+        inquiry_subject: payload.subject.trim(),
+        subject: `New Portfolio Contact: ${payload.subject.trim()}`,
+        access_key: ACCESS_KEY,
+      }),
       signal,
     });
 
@@ -30,20 +34,20 @@ export async function sendContactMessage(payload, { signal } = {}) {
     const data = await res.json().catch(() => null);
 
     if (res.ok && data?.success) {
-      return { ok: true, message: data.message || 'Message sent!', errors: null };
+      return { ok: true, message: 'Thanks for reaching out! Your message was sent.', errors: null };
     }
 
     return {
       ok: false,
       errors: data?.errors || null,
-      message: data?.message || 'Could not send your message. Please email me directly.',
+      message: data?.message || data?.body?.message || 'Your message could not be sent. Please try again.',
     };
   } catch (err) {
     if (err?.name === 'AbortError') throw err;
     return {
       ok: false,
       errors: null,
-      message: 'Could not send your message. Please email me directly.',
+      message: 'Your message could not be sent. Check your connection and try again.',
     };
   }
 }

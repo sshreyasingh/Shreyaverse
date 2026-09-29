@@ -129,8 +129,8 @@ function ErrorMessage({ message }) {
 }
 
 export default function Contact() {
-  const formRef = useRef(null);
   const honeypotRef = useRef(null);
+  const submittingRef = useRef(false);
   const [formData, setFormData] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
@@ -163,6 +163,7 @@ export default function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (submittingRef.current) return;
     setTouched({ name: true, email: true, subject: true, message: true });
 
     const validationErrors = validate(formData);
@@ -170,13 +171,28 @@ export default function Contact() {
 
     if (Object.keys(validationErrors).length > 0) return;
 
+    submittingRef.current = true;
     setStatus('sending');
-    const result = await sendContactMessage({
-      ...formData,
-      botcheck: honeypotRef.current?.value || '',
-    });
+    let result;
+    try {
+      result = await sendContactMessage({
+        ...formData,
+        botcheck: honeypotRef.current?.value || '',
+      });
+    } catch {
+      result = {
+        ok: false,
+        message: 'Your message could not be sent. Please try again.',
+      };
+    } finally {
+      submittingRef.current = false;
+    }
 
     if (result.ok) {
+      setFormData(initialForm);
+      setErrors({});
+      setTouched({});
+      if (honeypotRef.current) honeypotRef.current.value = '';
       setServerMessage(result.message);
       setStatus('success');
       return;
@@ -227,7 +243,7 @@ export default function Contact() {
                 exit={{ opacity: 0, x: 20 }}
                 transition={{ duration: 0.4 }}
               >
-                <form ref={formRef} onSubmit={handleSubmit} noValidate>
+                <form onSubmit={handleSubmit} noValidate>
                   {/* Honeypot — real users never see it; bots that fill it get dropped by Web3Forms. */}
                   <input
                     ref={honeypotRef}
