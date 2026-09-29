@@ -110,13 +110,13 @@ export const PERSONAL_INFO = {
       duration: 'July 2026 - Aug 2026',
       description: 'Learnt about industrial ML and AI concepts from applied Amazon scientists.',
     },
-    // {
-    //   id: 2,
-    //   role: 'Full Stack Developer Intern',
-    //   company: 'StartupXYZ',
-    //   duration: 'Jan 2025 - May 2025',
-    //   description: 'Developed customer-facing dashboard using Next.js and MongoDB. Integrated AI chatbot.',
-    // },
+    {
+      id: 2,
+      role: 'SDE Intern',
+      company: 'Gyanama (Startup)',
+      duration: 'May 2025 - July 2025',
+      description: 'Built backend APIs for student health scores and AI-powered assignment evaluation workflows.',
+    },
   ],
   typingTexts: [
     'AI + MERN Developer',
